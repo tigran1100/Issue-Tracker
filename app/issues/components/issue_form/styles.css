@@ -1,0 +1,10 @@
+.CodeMirror,
+.CodeMirror-scroll {
+	max-height: 300px;
+}
+.editor-statusbar .autosave {
+	min-width: auto;
+}
+.editor-statusbar .cursor {
+	min-width: auto;
+}
