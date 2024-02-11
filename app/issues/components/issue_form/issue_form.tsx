@@ -95,9 +95,10 @@ const Issue_form = (Props: Props) => {
 					description: state_description,
 				})
 				.then((res) => {
-					if (res.data.success === 0) {
+					const response = res.data;
+					if (response.success === 0) {
 						set_state_submit_error("Something went wrong");
-					} else if (res.data.success === 1) {
+					} else if (response.success === 1) {
 						router.push(`/issues/${Props.issue?.id}`);
 					}
 				})
@@ -127,11 +128,13 @@ const Issue_form = (Props: Props) => {
 					description: state_description,
 				})
 				.then((res) => {
-					if (res.data.success === 0) {
+					const response = res.data;
+					if (response.success === 0) {
 						set_state_submit_error("Something went wrong");
-					} else if (res.data.success === 1) {
+					} else if (response.success === 1) {
 						set_state_title("");
 						set_state_description("");
+						router.push(`/issues/${response.data.request.id}`);
 					}
 				})
 				.catch((err) => {
