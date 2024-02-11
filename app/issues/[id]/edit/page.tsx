@@ -20,6 +20,7 @@ const Page = async (Props: Props) => {
 		`${process.env.NEXT_PUBLIC_API_URL}/issues/${id}`,
 		{
 			method: "GET",
+			cache: "no-store",
 		}
 	);
 	const result = await request.json();
