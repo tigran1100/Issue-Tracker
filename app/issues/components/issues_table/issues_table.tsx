@@ -13,6 +13,7 @@ import { Badge, Table } from "@radix-ui/themes";
 
 // Components
 import Issue_status_badge from "../issue_status_badge/issue_status_badge";
+import Link_element from "@/app/global.components/link/link";
 
 interface Issue {
 	id: number;
@@ -72,7 +73,9 @@ const Show_issues = async () => {
 							// }}
 						>
 							<Table.RowHeaderCell className="text-center sm:text-start">
-								{issue.title}
+								<Link_element href={`/issues/${issue.id}`}>
+									{issue.title}
+								</Link_element>
 								<div className="block mt-1 sm:hidden">
 									<Issue_status_badge status={issue.status} />
 								</div>
