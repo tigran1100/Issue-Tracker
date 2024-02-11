@@ -44,14 +44,14 @@ const Page = async (Props: Props) => {
 				<Flex gap="4" direction="column" className="">
 					<Flex gap="3" className="w-full">
 						<Heading>{issue.title}</Heading>
-						<Button>
-							<Link href={`/issues/${issue.id}/edit`}>
+						<Link href={`/issues/${issue.id}/edit`}>
+							<Button className="hover:cursor-pointer">
 								<Flex gap="1" align="center">
 									<FaPencil />
 									Edit
 								</Flex>
-							</Link>
-						</Button>
+							</Button>
+						</Link>
 					</Flex>
 					<Flex gap="3">
 						<Issue_status_badge status={issue.status} />
