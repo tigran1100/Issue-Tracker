@@ -7,9 +7,9 @@ import { Button } from "@radix-ui/themes";
 const Issues_toolbar = () => {
 	return (
 		<>
-			<Button className="hover:cursor-pointer">
-				<Link href="/issues/new">New Issue</Link>
-			</Button>
+			<Link href="/issues/new">
+				<Button className="hover:cursor-pointer">New Issue</Button>
+			</Link>
 		</>
 	);
 };
