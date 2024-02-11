@@ -9,7 +9,7 @@ import axios from "axios";
 import { Badge, Table } from "@radix-ui/themes";
 
 // Delay
-// import delay from "delay";
+import delay from "delay";
 
 // Components
 import Issue_status_badge from "../issue_status_badge/issue_status_badge";
