@@ -22,3 +22,7 @@ export const schema_issue_patch_validation = z.object({
 		.max(65535, "Description can't be longer than 65,535 characters")
 		.min(1, "Description is required"),
 });
+
+export const schema_single_issue_get_validation = z.object({
+	id: z.number().min(1, "Id is required"),
+});

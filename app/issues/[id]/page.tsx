@@ -27,12 +27,14 @@ interface Props {
 
 const Page = async (Props: Props) => {
 	let id = parseInt(Props.params.id);
-
-	const issue = await prisma.issue.findUnique({
-		where: {
-			id: id,
-		},
-	});
+	const request = await fetch(
+		`${process.env.NEXT_PUBLIC_API_URL}/issues/${id}`,
+		{
+			method: "GET",
+		}
+	);
+	const result = await request.json();
+	const issue = result.data.request;
 
 	if (!issue) {
 		notFound();

@@ -56,8 +56,8 @@ export async function POST(request: NextRequest) {
 		);
 	}
 
-	let body = await request.json();
-	let validation = schema_issue_create_validation.safeParse(body);
+	const body = await request.json();
+	const validation = schema_issue_create_validation.safeParse(body);
 
 	if (!validation.success) {
 		return NextResponse.json(
@@ -116,8 +116,8 @@ export async function PATCH(request: NextRequest) {
 		);
 	}
 
-	let body = await request.json();
-	let validation = schema_issue_patch_validation.safeParse(body);
+	const body = await request.json();
+	const validation = schema_issue_patch_validation.safeParse(body);
 
 	if (!validation.success) {
 		return NextResponse.json(
