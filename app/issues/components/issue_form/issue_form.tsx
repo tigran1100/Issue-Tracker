@@ -14,10 +14,7 @@ import { MdErrorOutline } from "react-icons/md";
 import { Button, Callout, TextField } from "@radix-ui/themes";
 
 // SimpleMDE
-// import SimpleMDE from "react-simplemde-editor";
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-	ssr: false,
-});
+import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 
 // Axios

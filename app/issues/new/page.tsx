@@ -1,5 +1,11 @@
+// NextJS
+import dynamic from "next/dynamic";
+
 // Components
-import Issue_form from "../components/issue_form/issue_form";
+const Issue_form = dynamic(
+	() => import("@/app/issues/components/issue_form/issue_form"),
+	{ ssr: false }
+);
 
 const Create_issue = () => {
 	return (
