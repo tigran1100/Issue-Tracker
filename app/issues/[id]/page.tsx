@@ -1,23 +1,28 @@
 // NextJS
 import { notFound } from "next/navigation";
+import Link from "next/link";
 
 // React
 import ReactMarkdown from "react-markdown";
-import { Suspense } from "react";
 import { FaPencil } from "react-icons/fa6";
+
+// Types
+import { Issue } from "@/app/global.types/types";
 
 // Prisma
 import prisma from "@/prisma/client";
 
+// Zod validations
+import { schema_single_issue_get_validation } from "@/validations";
+
 // Radix UI
-import { Badge, Button, Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { Button, Card, Flex, Heading, Text } from "@radix-ui/themes";
 
 // Components
 import Issue_status_badge from "../components/issue_status_badge/issue_status_badge";
 
 // Delay
 import delay from "delay";
-import Link from "next/link";
 
 interface Props {
 	params: {
@@ -27,17 +32,26 @@ interface Props {
 
 const Page = async (Props: Props) => {
 	let id = parseInt(Props.params.id);
-	const request = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/issues/${id}`,
-		{
-			method: "GET",
-			cache: "no-store",
-		}
-	);
-	const result = await request.json();
-	const issue = result.data.request;
+	let issue: Issue;
 
-	if (!issue) {
+	if (isNaN(id)) {
+		notFound();
+	}
+
+	const validation = schema_single_issue_get_validation.safeParse({ id: id });
+	if (!validation.success) {
+		notFound();
+	}
+
+	const prisma_request = await prisma.issue.findUnique({
+		where: {
+			id: id,
+		},
+	});
+
+	if (prisma_request) {
+		issue = prisma_request;
+	} else {
 		notFound();
 	}
 

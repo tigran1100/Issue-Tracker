@@ -1,12 +1,16 @@
 // NextJS
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-// Axios
-import axios from "axios";
+import { revalidatePath } from "next/cache";
 
 // Radix UI
-import { Badge, Table } from "@radix-ui/themes";
+import { Table } from "@radix-ui/themes";
+
+// Types
+import { Issue } from "@/app/global.types/types";
+
+// Prisma
+import prisma from "@/prisma/client";
 
 // Delay
 import delay from "delay";
@@ -15,38 +19,18 @@ import delay from "delay";
 import Issue_status_badge from "../issue_status_badge/issue_status_badge";
 import Link_element from "@/app/global.components/link/link";
 
-interface Issue {
-	id: number;
-	title: string;
-	status: string;
-	description: string;
-	created_at: string;
-}
-
-interface Response {
-	data: {
-		request: any;
-		issues: Issue[] | [];
-	};
-	reason: string;
-	success: number;
-}
-
 const Show_issues = async () => {
-	const request = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/issues`, {
-		method: "GET",
-		cache: "no-store",
+	const issues: Issue[] = await prisma.issue.findMany({
+		select: {
+			id: true,
+			title: true,
+			description: true,
+			created_at: true,
+			status: true,
+		},
 	});
-	const response = await request.json();
-	// await delay(1400);
 
-	let issues: Issue[] = [];
-
-	if (response.success === 1) {
-		issues = response.data.issues;
-	} else {
-		issues = [];
-	}
+	revalidatePath("/issues");
 
 	return (
 		<>

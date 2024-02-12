@@ -3,6 +3,7 @@ import { Suspense } from "react";
 
 // NextJS
 import Link from "next/link";
+import { revalidatePath } from "next/cache";
 
 // Radix
 import { Button } from "@radix-ui/themes";
@@ -28,4 +29,6 @@ const Page = () => {
 	);
 };
 
+export const dynamic = "force-dynamic"; // defaults to auto
+export const revalidate = 0;
 export default Page;

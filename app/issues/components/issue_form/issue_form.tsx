@@ -2,6 +2,7 @@
 // NextJS
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 // React
 import { useState, useEffect, useCallback, Suspense } from "react";
@@ -100,6 +101,7 @@ const Issue_form = (Props: Props) => {
 						set_state_submit_error("Something went wrong");
 					} else if (response.success === 1) {
 						router.push(`/issues/${Props.issue?.id}`);
+						router.refresh();
 					}
 				})
 				.catch((err) => {
@@ -135,6 +137,7 @@ const Issue_form = (Props: Props) => {
 						set_state_title("");
 						set_state_description("");
 						router.push(`/issues/${response.data.request.id}`);
+						router.refresh();
 					}
 				})
 				.catch((err) => {
