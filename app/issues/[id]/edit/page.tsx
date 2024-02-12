@@ -1,6 +1,7 @@
 // NextJS
 import { notFound } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import dynamic from "next/dynamic";
 
 // Types
 import { Issue } from "@/app/global.types/types";
@@ -12,7 +13,12 @@ import prisma from "@/prisma/client";
 import { schema_single_issue_get_validation } from "@/validations";
 
 // Components
-import Issue_form from "../../components/issue_form/issue_form";
+const Issue_form = dynamic(
+	() => import("@/app/issues/components/issue_form/issue_form"),
+	{
+		ssr: false,
+	}
+);
 
 interface Props {
 	params: {
