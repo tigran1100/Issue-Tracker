@@ -5,6 +5,7 @@ import Link from "next/link";
 // React
 import ReactMarkdown from "react-markdown";
 import { FaPencil } from "react-icons/fa6";
+import { MdDelete } from "react-icons/md";
 
 // Types
 import { Issue } from "@/app/global.types/types";
@@ -58,17 +59,33 @@ const Page = async (Props: Props) => {
 	return (
 		<>
 			<div className="page_content">
-				<Flex gap="4" direction="column" className="">
-					<Flex gap="3" className="w-full">
+				<Flex gap="4" direction="column" className="max-w-xl">
+					<Flex gap="3" direction="column" className="w-full">
 						<Heading>{issue.title}</Heading>
-						<Link href={`/issues/${issue.id}/edit`}>
-							<Button className="hover:cursor-pointer">
-								<Flex gap="1" align="center">
-									<FaPencil />
-									Edit
-								</Flex>
-							</Button>
-						</Link>
+						<Flex gap="1">
+							<Link href={`/issues/${issue.id}/edit`}>
+								<Button
+									className="hover:cursor-pointer"
+									color="blue"
+								>
+									<Flex gap="1" align="center">
+										<FaPencil />
+										Edit
+									</Flex>
+								</Button>
+							</Link>
+							<Link href={`/issues/${issue.id}/edit`}>
+								<Button
+									className="hover:cursor-pointer"
+									color="red"
+								>
+									<Flex gap="1" align="center">
+										<MdDelete />
+										Delete
+									</Flex>
+								</Button>
+							</Link>
+						</Flex>
 					</Flex>
 					<Flex gap="3">
 						<Issue_status_badge status={issue.status} />
@@ -76,7 +93,7 @@ const Page = async (Props: Props) => {
 							{new Date(issue.created_at).toLocaleString()}
 						</Text>
 					</Flex>
-					<Card className="max-w-96">
+					<Card>
 						<ReactMarkdown className="prose">
 							{issue.description}
 						</ReactMarkdown>
