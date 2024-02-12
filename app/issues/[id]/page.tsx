@@ -24,6 +24,7 @@ import Issue_status_badge from "../components/issue_status_badge/issue_status_ba
 
 // Delay
 import delay from "delay";
+import Edit_button from "./components/edit_button/edit_button";
 
 interface Props {
 	params: {
@@ -63,17 +64,7 @@ const Page = async (Props: Props) => {
 					<Flex gap="3" direction="column" className="w-full">
 						<Heading>{issue.title}</Heading>
 						<Flex gap="1">
-							<Link href={`/issues/${issue.id}/edit`}>
-								<Button
-									className="hover:cursor-pointer"
-									color="blue"
-								>
-									<Flex gap="1" align="center">
-										<FaPencil />
-										Edit
-									</Flex>
-								</Button>
-							</Link>
+							<Edit_button id={issue.id} />
 							<Link href={`/issues/${issue.id}/edit`}>
 								<Button
 									className="hover:cursor-pointer"
