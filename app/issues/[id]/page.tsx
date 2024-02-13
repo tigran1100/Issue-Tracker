@@ -21,10 +21,11 @@ import { Button, Card, Flex, Heading, Text } from "@radix-ui/themes";
 
 // Components
 import Issue_status_badge from "../components/issue_status_badge/issue_status_badge";
+import Edit_button from "./components/edit_button/edit_button";
+import Delete_button from "./components/delete_button/delete_button";
 
 // Delay
 import delay from "delay";
-import Edit_button from "./components/edit_button/edit_button";
 
 interface Props {
 	params: {
@@ -65,17 +66,7 @@ const Page = async (Props: Props) => {
 						<Heading>{issue.title}</Heading>
 						<Flex gap="1">
 							<Edit_button id={issue.id} />
-							<Link href={`/issues/${issue.id}/edit`}>
-								<Button
-									className="hover:cursor-pointer"
-									color="red"
-								>
-									<Flex gap="1" align="center">
-										<MdDelete />
-										Delete
-									</Flex>
-								</Button>
-							</Link>
+							<Delete_button id={issue.id} />
 						</Flex>
 					</Flex>
 					<Flex gap="3">
