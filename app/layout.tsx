@@ -8,6 +8,7 @@ import { Theme } from "@radix-ui/themes";
 
 // Components
 import Navbar from "./components/navbar/navbar";
+import Auth_Provider from "./auth/provider";
 
 // Css
 import "./styles.css";
@@ -27,10 +28,12 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning={true}>
 			<body className={inter.className}>
-				<Theme appearance="light">
-					<Navbar />
-					{children}
-				</Theme>
+				<Auth_Provider>
+					<Theme appearance="light">
+						<Navbar />
+						{children}
+					</Theme>
+				</Auth_Provider>
 			</body>
 		</html>
 	);
