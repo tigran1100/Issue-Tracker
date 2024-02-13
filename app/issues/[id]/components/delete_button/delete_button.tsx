@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 import { useState } from "react";
+import PuffLoader from "react-spinners/PuffLoader";
 
 const Delete_button = (Props: { id: number }) => {
 	// Hooks
@@ -11,9 +12,11 @@ const Delete_button = (Props: { id: number }) => {
 
 	// States
 	const [state_error, set_state_error] = useState<boolean>(false);
+	const [state_is_deleting, set_state_is_deleting] = useState<boolean>(false);
 
 	// Functions
 	const delete_issue = () => {
+		set_state_is_deleting(true);
 		axios
 			.delete(`${process.env.NEXT_PUBLIC_API_URL}/issues/${Props.id}`)
 			.then((res) => {
@@ -30,6 +33,11 @@ const Delete_button = (Props: { id: number }) => {
 				console.warn(err);
 				set_state_error(true);
 				router.refresh();
+			})
+			.finally(() => {
+				setTimeout(() => {
+					set_state_is_deleting(false);
+				}, 1000);
 			});
 	};
 
@@ -37,9 +45,22 @@ const Delete_button = (Props: { id: number }) => {
 		<>
 			<AlertDialog.Root>
 				<AlertDialog.Trigger>
-					<Button color="red" className="hover:cursor-pointer">
-						<MdDelete />
-						Delete
+					<Button
+						color="red"
+						className="hover:cursor-pointer"
+						disabled={state_is_deleting}
+					>
+						{state_is_deleting ? (
+							<>
+								Deleting
+								<PuffLoader color="gray" size="18px" />
+							</>
+						) : (
+							<>
+								<MdDelete />
+								Delete
+							</>
+						)}
 					</Button>
 				</AlertDialog.Trigger>
 				<AlertDialog.Content style={{ maxWidth: 450 }}>
