@@ -1,9 +1,31 @@
 "use client";
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 
 const Delete_button = (Props: { id: number }) => {
+	// Hooks
+	const router = useRouter();
+
+	// Functions
+	const delete_issue = () => {
+		axios
+			.delete(`${process.env.NEXT_PUBLIC_API_URL}/issues/${Props.id}`)
+			.then((res) => {
+				let response = res.data;
+				if (response.success === 1) {
+					router.push("/issues");
+					router.refresh();
+				}
+			})
+			.catch((err) => {
+				console.warn(err);
+				router.refresh();
+			});
+	};
+
 	return (
 		<>
 			<AlertDialog.Root>
@@ -36,7 +58,7 @@ const Delete_button = (Props: { id: number }) => {
 								color="red"
 								className="hover:cursor-pointer"
 								onClick={() => {
-									console.log("Clicked");
+									delete_issue();
 								}}
 							>
 								Delete
