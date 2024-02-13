@@ -1,11 +1,22 @@
 "use client";
+// NextJS
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
+
+// React Icons
 import { FaBug } from "react-icons/fa";
+
+// Radix UI
+import { Button } from "@radix-ui/themes";
+
+// Styles
 import "./styles.css";
 
 const Navbar = () => {
+	// Hooks
 	const currentPath = usePathname();
+	const session = useSession();
 
 	const nav_links = [
 		{
@@ -42,6 +53,31 @@ const Navbar = () => {
 								{link.name}
 							</Link>
 						))}
+						{session.status === "authenticated" ? (
+							<>
+								<Link href="/api/auth/signout">
+									<Button
+										color="red"
+										className="!cursor-pointer"
+									>
+										Logout
+									</Button>
+								</Link>
+							</>
+						) : (
+							session.status === "unauthenticated" && (
+								<>
+									<Link href="/api/auth/signin">
+										<Button
+											color="blue"
+											className="!cursor-pointer"
+										>
+											Login
+										</Button>
+									</Link>
+								</>
+							)
+						)}
 					</div>
 				</div>
 			</div>
