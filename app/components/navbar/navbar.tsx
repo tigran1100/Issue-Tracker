@@ -35,7 +35,7 @@ const Navbar = () => {
 	return (
 		<>
 			<div className="c-navbar">
-				<div className="c-navbar-inner">
+				<div className="c-navbar-inner page_content">
 					<Link href="/" className="c-navbar-logo">
 						<FaBug />
 					</Link>
