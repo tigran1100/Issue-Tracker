@@ -1,6 +1,10 @@
 // NextJS
 import { NextRequest, NextResponse } from "next/server";
 
+// NextAuth
+import { auth_options } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+
 // Prisma
 import prisma from "@/prisma/client";
 
@@ -42,6 +46,18 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+	const session = await getServerSession(auth_options);
+	if (!session) {
+		return NextResponse.json(
+			{
+				success: 0,
+				reason: "Unauthorised",
+				data: {},
+			},
+			{ status: 401 }
+		);
+	}
+
 	if (
 		!request.headers.get("Content-Length") ||
 		request.headers.get("Content-Length") === "0"
@@ -102,6 +118,18 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
+	const session = await getServerSession(auth_options);
+	if (!session) {
+		return NextResponse.json(
+			{
+				success: 0,
+				reason: "Unauthorised",
+				data: {},
+			},
+			{ status: 401 }
+		);
+	}
+
 	if (
 		!request.headers.get("Content-Length") ||
 		request.headers.get("Content-Length") === "0"

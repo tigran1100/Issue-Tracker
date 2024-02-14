@@ -2,6 +2,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
+// NextAuth
+import { auth_options } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+
 // React
 import ReactMarkdown from "react-markdown";
 import { FaPencil } from "react-icons/fa6";
@@ -58,17 +62,21 @@ const Page = async (Props: Props) => {
 		notFound();
 	}
 
+	const session = await getServerSession(auth_options);
+
 	return (
 		<>
 			<div className="page_content">
 				<Flex gap="4" direction="column" className="max-w-xl">
-					<Flex gap="3" direction="column" className="w-full">
-						<Heading>{issue.title}</Heading>
-						<Flex gap="1">
-							<Edit_button id={issue.id} />
-							<Delete_button id={issue.id} />
+					{(session as any) && (
+						<Flex gap="3" direction="column" className="w-full">
+							<Heading>{issue.title}</Heading>
+							<Flex gap="1">
+								<Edit_button id={issue.id} />
+								<Delete_button id={issue.id} />
+							</Flex>
 						</Flex>
-					</Flex>
+					)}
 					<Flex gap="3">
 						<Issue_status_badge status={issue.status} />
 						<Text>

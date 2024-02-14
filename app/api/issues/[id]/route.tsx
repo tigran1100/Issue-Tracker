@@ -1,6 +1,10 @@
 // NextJS
 import { NextRequest, NextResponse } from "next/server";
 
+// NextAuth
+import { auth_options } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+
 // Prisma
 import prisma from "@/prisma/client";
 
@@ -14,6 +18,18 @@ interface Props {
 }
 
 export async function DELETE(request: NextRequest, Props: Props) {
+	const session = await getServerSession(auth_options);
+	if (!session) {
+		return NextResponse.json(
+			{
+				success: 0,
+				reason: "Unauthorised",
+				data: {},
+			},
+			{ status: 401 }
+		);
+	}
+
 	let id = parseInt(Props.params.id);
 
 	if (isNaN(id)) {
