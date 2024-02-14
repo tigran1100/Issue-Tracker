@@ -74,6 +74,15 @@ const Dropdown_menu = () => {
 
 	return (
 		<>
+			{session.status === "loading" ? (
+				<>
+					<Button color="blue" className="!cursor-pointer">
+						<div className="opacity-a0">Login</div>
+					</Button>
+				</>
+			) : (
+				<></>
+			)}
 			{session.status === "authenticated" ? (
 				<>
 					<DropdownMenu.Root>
