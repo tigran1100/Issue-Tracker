@@ -11,27 +11,29 @@ datasource db {
 }
 
 model Issue {
-  id          Int      @id @default(autoincrement())
-  title       String   @db.VarChar(255)
-  description String   @db.Text
-  status      String   @default("open")
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id               Int      @id @default(autoincrement())
+  title            String   @db.VarChar(255)
+  description      String   @db.Text
+  status           String   @default("open")
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+  assigned_to_user_id String   @db.VarChar(255)
+  assigned_to_user User? @relation(fields: [assigned_to_user_id], references: [id])
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -54,6 +56,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  assigned_issues Issue[]
 }
 
 model VerificationToken {
