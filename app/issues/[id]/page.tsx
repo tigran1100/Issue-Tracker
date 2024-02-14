@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 
 // NextAuth
-import { auth_options } from "@/app/api/auth/[...nextauth]/route";
+import { auth_options } from "@/app/api/auth/[...nextauth]/auth_options";
 import { getServerSession } from "next-auth";
 
 // React
