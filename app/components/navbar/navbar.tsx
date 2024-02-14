@@ -7,6 +7,10 @@ import { useSession } from "next-auth/react";
 // React Icons
 import { FaBug } from "react-icons/fa";
 
+// React Loading Skeleton
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 // Radix UI
 import { Avatar, Button, DropdownMenu, Text } from "@radix-ui/themes";
 
@@ -34,6 +38,7 @@ const Navbar = () => {
 const Navbar_links = () => {
 	// Hooks
 	const currentPath = usePathname();
+	const session = useSession();
 
 	const nav_links = [
 		{
@@ -51,18 +56,30 @@ const Navbar_links = () => {
 
 	return (
 		<>
-			<div className="c-navbar-links">
-				{nav_links.map((link, index) => (
-					<Link
-						key={76518 + index}
-						href={link.href}
-						className={`c-navbar-link font-medium text-zinc-500 hover:text-zinc-800 transition-all ${
-							currentPath === link.href ? "text-zinc-800" : ""
-						}`}
-					>
-						{link.name}
-					</Link>
-				))}
+			<div className="c-navbar-links gap-2">
+				{session.status === "loading" ? (
+					<>
+						{nav_links.map((link, index) => (
+							<Skeleton key={1674518 + index} width="60px" />
+						))}
+					</>
+				) : (
+					<>
+						{nav_links.map((link, index) => (
+							<Link
+								key={76518 + index}
+								href={link.href}
+								className={`c-navbar-link font-medium text-zinc-500 hover:text-zinc-800 transition-all ${
+									currentPath === link.href
+										? "text-zinc-800"
+										: ""
+								}`}
+							>
+								{link.name}
+							</Link>
+						))}
+					</>
+				)}
 			</div>
 		</>
 	);
@@ -74,15 +91,6 @@ const Dropdown_menu = () => {
 
 	return (
 		<>
-			{session.status === "loading" ? (
-				<>
-					<Button color="blue" className="!cursor-pointer">
-						<div className="opacity-a0">Login</div>
-					</Button>
-				</>
-			) : (
-				<></>
-			)}
 			{session.status === "authenticated" ? (
 				<>
 					<DropdownMenu.Root>
