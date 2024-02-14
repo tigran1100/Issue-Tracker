@@ -30,6 +30,7 @@ import Delete_button from "./components/delete_button/delete_button";
 
 // Delay
 import delay from "delay";
+import Select_assignee from "./components/select_assignee/select_assignee";
 
 interface Props {
 	params: {
@@ -72,6 +73,7 @@ const Page = async (Props: Props) => {
 						<Flex gap="3" direction="column" className="w-full">
 							<Heading>{issue.title}</Heading>
 							<Flex gap="1">
+								<Select_assignee id={issue.id} />
 								<Edit_button id={issue.id} />
 								<Delete_button id={issue.id} />
 							</Flex>
