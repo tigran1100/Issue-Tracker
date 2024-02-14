@@ -11,7 +11,12 @@
 	align-items: center;
 	justify-content: space-between;
 }
-.c-navbar-logo {
+.c-navbar-left {
+}
+.c-navbar-right {
+	display: flex;
+	align-items: center;
+	grid-gap: 20px;
 }
 .c-navbar-links {
 	display: flex;
