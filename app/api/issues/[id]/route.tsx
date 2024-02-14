@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 // NextAuth
-import { auth_options } from "@/app/api/auth/[...nextauth]/route";
+import { auth_options } from "@/app/api/auth/[...nextauth]/auth_options";
 import { getServerSession } from "next-auth";
 
 // Prisma
