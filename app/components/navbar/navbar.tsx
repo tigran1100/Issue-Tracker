@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { FaBug } from "react-icons/fa";
 
 // Radix UI
-import { Button } from "@radix-ui/themes";
+import { Avatar, Button, DropdownMenu, Text } from "@radix-ui/themes";
 
 // Styles
 import "./styles.css";
@@ -55,14 +55,42 @@ const Navbar = () => {
 						))}
 						{session.status === "authenticated" ? (
 							<>
-								<Link href="/api/auth/signout">
-									<Button
-										color="red"
-										className="!cursor-pointer"
-									>
-										Logout
-									</Button>
-								</Link>
+								<DropdownMenu.Root>
+									<DropdownMenu.Trigger>
+										<Avatar
+											radius="full"
+											size="2"
+											className="cursor-pointer"
+											src={session.data?.user?.image!}
+											fallback={
+												session.data?.user?.name?.charAt(
+													1
+												)!
+											}
+										/>
+									</DropdownMenu.Trigger>
+									<DropdownMenu.Content>
+										<DropdownMenu.Label>
+											<Text color="gray">
+												{session.data?.user?.email}
+											</Text>
+										</DropdownMenu.Label>
+										<DropdownMenu.Separator />
+										<DropdownMenu.Label>
+											<Link
+												href="/api/auth/signout"
+												className="!w-full"
+											>
+												<Button
+													color="red"
+													className="!cursor-pointer !w-full"
+												>
+													Logout
+												</Button>
+											</Link>
+										</DropdownMenu.Label>
+									</DropdownMenu.Content>
+								</DropdownMenu.Root>
 							</>
 						) : (
 							session.status === "unauthenticated" && (
