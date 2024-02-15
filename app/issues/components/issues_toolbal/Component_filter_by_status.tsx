@@ -15,8 +15,7 @@ const Component_filter_by_status = () => {
 
 	// Functions
 	const get_filter_status = () => {
-		let searchParams = search_params;
-		let status = searchParams.get("status");
+		let status = search_params.get("status");
 
 		if (!status) {
 			return "all";
@@ -39,7 +38,21 @@ const Component_filter_by_status = () => {
 		if (new_status === "all") {
 			router.push("/issues/");
 		} else {
-			router.push("/issues/?status=" + new_status);
+			if (
+				search_params.get("orderBy") &&
+				(search_params.get("orderBy") === "id" ||
+					search_params.get("orderBy") === "status" ||
+					search_params.get("orderBy") === "date")
+			) {
+				router.push(
+					"/issues/?status=" +
+						new_status +
+						"&orderBy=" +
+						search_params.get("orderBy")
+				);
+			} else {
+				router.push("/issues/?status=" + new_status);
+			}
 		}
 	};
 
