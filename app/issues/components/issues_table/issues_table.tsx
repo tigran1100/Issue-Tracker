@@ -42,6 +42,21 @@ const Show_issues = async (Props: any) => {
 		search_filter = "all";
 	}
 
+	let orderByParam;
+	if (Object.keys(search_params).length > 0 && search_params.orderBy) {
+		if (search_params.orderBy === "id") {
+			orderByParam = "id";
+		} else if (search_params.orderBy === "status") {
+			orderByParam = "status";
+		} else if (search_params.orderBy === "date") {
+			orderByParam = "created_at";
+		} else {
+			orderByParam = "id";
+		}
+	} else {
+		orderByParam = "id";
+	}
+
 	const issues: Issue[] = await prisma.issue.findMany({
 		select: {
 			id: true,
@@ -49,6 +64,9 @@ const Show_issues = async (Props: any) => {
 			description: true,
 			created_at: true,
 			status: true,
+		},
+		orderBy: {
+			[orderByParam]: "asc",
 		},
 	});
 
