@@ -1,7 +1,5 @@
 // NextJS
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 
 // Radix UI
 import { Table } from "@radix-ui/themes";
@@ -19,7 +17,27 @@ import delay from "delay";
 import Issue_status_badge from "../issue_status_badge/issue_status_badge";
 import Link_element from "@/app/global.components/link/link";
 
-const Show_issues = async () => {
+const Show_issues = async (Props: any) => {
+	// Values
+	const search_params = Props.parent_props.searchParams;
+	let search_filter = "all";
+
+	if (Object.keys(search_params).length > 0 && search_params.status) {
+		if (search_params.status === "all") {
+			search_filter = "all";
+		} else if (search_params.status === "open") {
+			search_filter = "open";
+		} else if (search_params.status === "closed") {
+			search_filter = "closed";
+		} else if (search_params.status === "in_progress") {
+			search_filter = "in progress";
+		} else {
+			search_filter = "all";
+		}
+	} else {
+		search_filter = "all";
+	}
+
 	const issues: Issue[] = await prisma.issue.findMany({
 		select: {
 			id: true,
@@ -30,7 +48,14 @@ const Show_issues = async () => {
 		},
 	});
 
-	revalidatePath("/issues");
+	let filtered_issues;
+	if (search_filter === "all") {
+		filtered_issues = issues;
+	} else {
+		filtered_issues = issues.filter((issue) => {
+			return issue.status === search_filter;
+		});
+	}
 
 	return (
 		<>
@@ -48,13 +73,10 @@ const Show_issues = async () => {
 				</Table.Header>
 
 				<Table.Body>
-					{issues?.map((issue, index) => (
+					{filtered_issues?.map((issue, index) => (
 						<Table.Row
 							key={"65431" + index}
 							className="cursor-pointer hover:bg-slate-100 transition-all"
-							// onClick={() => {
-							// 	router.push("/issues/" + issue.id);
-							// }}
 						>
 							<Table.RowHeaderCell className="text-center sm:text-start">
 								<Link_element href={`/issues/${issue.id}`}>
