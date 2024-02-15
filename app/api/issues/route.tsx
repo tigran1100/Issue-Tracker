@@ -158,6 +158,26 @@ export async function PATCH(request: NextRequest) {
 		);
 	}
 
+	if (body.assigned_to_user_id) {
+		const user = await prisma.user.findUnique({
+			where: {
+				id: body.assigned_to_user_id,
+			},
+		});
+		if (!user) {
+			return NextResponse.json(
+				{
+					success: 0,
+					reason: "Invalid user",
+					data: {
+						body: body,
+					},
+				},
+				{ status: 400 }
+			);
+		}
+	}
+
 	const prisma_create_request = await prisma.issue.update({
 		where: {
 			id: body.id,
@@ -165,6 +185,7 @@ export async function PATCH(request: NextRequest) {
 		data: {
 			title: body.title,
 			description: body.description,
+			assigned_to_user_id: body.assigned_to_user_id,
 		},
 	});
 
