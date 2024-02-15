@@ -1,8 +1,11 @@
 // NextJS
 import { headers } from "next/headers";
 
+// React Icons
+import { FaArrowUp } from "react-icons/fa6";
+
 // Radix UI
-import { Table } from "@radix-ui/themes";
+import { Flex, Table } from "@radix-ui/themes";
 
 // Types
 import { Issue } from "@/app/global.types/types";
@@ -16,6 +19,7 @@ import delay from "delay";
 // Components
 import Issue_status_badge from "../issue_status_badge/issue_status_badge";
 import Link_element from "@/app/global.components/link/link";
+import Link from "next/link";
 
 const Show_issues = async (Props: any) => {
 	// Values
@@ -62,12 +66,50 @@ const Show_issues = async (Props: any) => {
 			<Table.Root variant="surface">
 				<Table.Header>
 					<Table.Row>
-						<Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
-						<Table.ColumnHeaderCell className="hidden sm:table-cell">
-							Status
+						<Table.ColumnHeaderCell>
+							<Link
+								href={{
+									query: {
+										...search_params,
+										orderBy: "id",
+									},
+								}}
+							>
+								Issue
+								{search_params.orderBy === "id" && (
+									<FaArrowUp className="inline ml-1 w-3" />
+								)}
+							</Link>
 						</Table.ColumnHeaderCell>
 						<Table.ColumnHeaderCell className="hidden sm:table-cell">
-							Created
+							<Link
+								href={{
+									query: {
+										...search_params,
+										orderBy: "status",
+									},
+								}}
+							>
+								Status
+								{search_params.orderBy === "status" && (
+									<FaArrowUp className="inline ml-1 w-3" />
+								)}
+							</Link>
+						</Table.ColumnHeaderCell>
+						<Table.ColumnHeaderCell className="hidden sm:table-cell">
+							<Link
+								href={{
+									query: {
+										...search_params,
+										orderBy: "date",
+									},
+								}}
+							>
+								Created
+								{search_params.orderBy === "date" && (
+									<FaArrowUp className="inline ml-1 w-3" />
+								)}
+							</Link>
 						</Table.ColumnHeaderCell>
 					</Table.Row>
 				</Table.Header>
