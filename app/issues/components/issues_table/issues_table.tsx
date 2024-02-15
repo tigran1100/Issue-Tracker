@@ -44,17 +44,17 @@ const Show_issues = async (Props: any) => {
 
 	let orderByParam;
 	if (Object.keys(search_params).length > 0 && search_params.orderBy) {
-		if (search_params.orderBy === "id") {
-			orderByParam = "id";
+		if (search_params.orderBy === "title") {
+			orderByParam = "title";
 		} else if (search_params.orderBy === "status") {
 			orderByParam = "status";
 		} else if (search_params.orderBy === "date") {
 			orderByParam = "created_at";
 		} else {
-			orderByParam = "id";
+			orderByParam = "title";
 		}
 	} else {
-		orderByParam = "id";
+		orderByParam = "title";
 	}
 
 	const issues: Issue[] = await prisma.issue.findMany({
@@ -89,12 +89,12 @@ const Show_issues = async (Props: any) => {
 								href={{
 									query: {
 										...search_params,
-										orderBy: "id",
+										orderBy: "title",
 									},
 								}}
 							>
 								Issue
-								{search_params.orderBy === "id" && (
+								{search_params.orderBy === "title" && (
 									<FaArrowUp className="inline ml-1 w-3" />
 								)}
 							</Link>
