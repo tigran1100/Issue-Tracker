@@ -1,11 +1,12 @@
-import Pagination from "./global.components/pagination/pagination";
+// Components
+import Latest_issues from "./components/latest_issues/latest_issues";
 
-interface Props {
-	searchParams: {
-		page: string;
-	};
-}
-
-export default function Home(Props: Props) {
-	return <>Home Page</>;
+export default function Home() {
+	return (
+		<>
+			<div className="page_content">
+				<Latest_issues />
+			</div>
+		</>
+	);
 }

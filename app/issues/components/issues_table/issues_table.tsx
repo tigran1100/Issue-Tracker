@@ -17,7 +17,7 @@ import prisma from "@/prisma/client";
 import delay from "delay";
 
 // Components
-import Issue_status_badge from "../issue_status_badge/issue_status_badge";
+import Issue_status_badge from "../../../global.components/issue_status_badge/issue_status_badge";
 import Link_element from "@/app/global.components/link/link";
 import Link from "next/link";
 import Pagination from "@/app/global.components/pagination/pagination";

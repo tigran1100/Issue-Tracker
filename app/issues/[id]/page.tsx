@@ -23,7 +23,7 @@ import { schema_single_issue_get_validation } from "@/validations";
 import { Button, Card, Flex, Heading, Text } from "@radix-ui/themes";
 
 // Components
-import Issue_status_badge from "../components/issue_status_badge/issue_status_badge";
+import Issue_status_badge from "../../global.components/issue_status_badge/issue_status_badge";
 import Edit_button from "./components/edit_button/edit_button";
 import Delete_button from "./components/delete_button/delete_button";
 import Select_assignee from "./components/select_assignee/select_assignee";
