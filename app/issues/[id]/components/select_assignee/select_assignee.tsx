@@ -1,4 +1,6 @@
 "use client";
+// NextJS
+import { useRouter } from "next/navigation";
 
 // React
 import { useEffect, useState } from "react";
@@ -17,6 +19,9 @@ import toast, { Toaster } from "react-hot-toast";
 
 type Props = { issue: Issue };
 const Select_assignee = (Props: Props) => {
+	// Hooks
+	const router = useRouter();
+
 	// States
 	const [state_users, set_state_users] = useState<User[]>([]);
 
@@ -53,6 +58,9 @@ const Select_assignee = (Props: Props) => {
 								select_user_id === "Unassigned"
 									? null
 									: select_user_id,
+						})
+						.then((res) => {
+							router.refresh();
 						})
 						.catch(() => {
 							toast.error("Changes could not be saved");
