@@ -35,25 +35,15 @@ const Component_filter_by_status = () => {
 	};
 
 	const set_new_status = (new_status: string) => {
+		const url = new URLSearchParams(search_params);
+
 		if (new_status === "all") {
-			router.push("/issues/");
+			url.delete("status");
 		} else {
-			if (
-				search_params.get("orderBy") &&
-				(search_params.get("orderBy") === "id" ||
-					search_params.get("orderBy") === "status" ||
-					search_params.get("orderBy") === "date")
-			) {
-				router.push(
-					"/issues/?status=" +
-						new_status +
-						"&orderBy=" +
-						search_params.get("orderBy")
-				);
-			} else {
-				router.push("/issues/?status=" + new_status);
-			}
+			url.set("status", new_status);
 		}
+
+		router.push("?" + url);
 	};
 
 	return (
