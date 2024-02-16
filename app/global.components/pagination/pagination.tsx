@@ -41,7 +41,7 @@ const Pagination = (Props: Props) => {
 	// Return
 	return (
 		<>
-			<Flex align="center" gap="4">
+			<Flex align="center" gap="4" justify="center" className="!my-4">
 				<Flex align="center" gap="2">
 					<Button
 						color="gray"

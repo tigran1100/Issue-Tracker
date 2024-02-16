@@ -20,12 +20,15 @@ import delay from "delay";
 import Issue_status_badge from "../issue_status_badge/issue_status_badge";
 import Link_element from "@/app/global.components/link/link";
 import Link from "next/link";
+import Pagination from "@/app/global.components/pagination/pagination";
 
 const Show_issues = async (Props: any) => {
-	// Values
+	// Variables
 	const search_params = Props.parent_props.searchParams;
 	let search_filter = "all";
+	let orderByParam;
 
+	// Statements
 	if (Object.keys(search_params).length > 0 && search_params.status) {
 		if (search_params.status === "all") {
 			search_filter = "all";
@@ -42,7 +45,6 @@ const Show_issues = async (Props: any) => {
 		search_filter = "all";
 	}
 
-	let orderByParam;
 	if (Object.keys(search_params).length > 0 && search_params.orderBy) {
 		if (search_params.orderBy === "title") {
 			orderByParam = "title";
@@ -57,6 +59,21 @@ const Show_issues = async (Props: any) => {
 		orderByParam = "title";
 	}
 
+	// Variables
+	let filtered_issues;
+	let total_issues = await prisma.issue.count({
+		where: { status: search_filter !== "all" ? search_filter : undefined },
+	});
+
+	let pagination_params = {
+		limit: 10,
+		offset: 0,
+		pages: 0,
+		curent_page: parseInt(Props.parent_props.searchParams.page) ?? 1,
+		total_issues: total_issues,
+		total_pages: Math.ceil(total_issues / 10),
+	};
+
 	const issues: Issue[] = await prisma.issue.findMany({
 		select: {
 			id: true,
@@ -70,7 +87,7 @@ const Show_issues = async (Props: any) => {
 		},
 	});
 
-	let filtered_issues;
+	// Statements
 	if (search_filter === "all") {
 		filtered_issues = issues;
 	} else {
@@ -79,6 +96,7 @@ const Show_issues = async (Props: any) => {
 		});
 	}
 
+	// Return
 	return (
 		<>
 			<Table.Root variant="surface">
@@ -136,7 +154,7 @@ const Show_issues = async (Props: any) => {
 					{filtered_issues?.map((issue, index) => (
 						<Table.Row
 							key={"65431" + index}
-							className="cursor-pointer hover:bg-slate-100 transition-all"
+							className="hover:bg-slate-100 transition-all"
 						>
 							<Table.RowHeaderCell className="text-center sm:text-start">
 								<Link_element href={`/issues/${issue.id}`}>
@@ -156,6 +174,11 @@ const Show_issues = async (Props: any) => {
 					))}
 				</Table.Body>
 			</Table.Root>
+			<Pagination
+				items_count={pagination_params.total_issues}
+				curent_page={pagination_params.curent_page}
+				page_size={pagination_params.limit}
+			/>
 		</>
 	);
 };

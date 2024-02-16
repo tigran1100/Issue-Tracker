@@ -7,13 +7,5 @@ interface Props {
 }
 
 export default function Home(Props: Props) {
-	return (
-		<>
-			<Pagination
-				items_count={101}
-				curent_page={parseInt(Props.searchParams.page)}
-				page_size={20}
-			/>
-		</>
-	);
+	return <>Home Page</>;
 }
