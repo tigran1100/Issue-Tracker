@@ -1,19 +1,28 @@
 "use client";
+
+// Recharts
 import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
-const Issue_chart = () => {
+// Types
+interface Props {
+	open: number;
+	in_progress: number;
+	closed: number;
+}
+
+const Issue_chart = (Props: Props) => {
 	const data = [
 		{
 			label: "open",
-			value: 8,
+			value: Props.open,
 		},
 		{
 			label: "in_progress",
-			value: 6,
+			value: Props.in_progress,
 		},
 		{
 			label: "closed",
-			value: 5,
+			value: Props.closed,
 		},
 	];
 

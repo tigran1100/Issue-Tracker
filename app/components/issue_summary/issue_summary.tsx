@@ -1,25 +1,20 @@
-import Link_element from "@/app/global.components/link/link";
+// Prisma
 import Prisma from "@/prisma/client";
+
+//Radix UI
 import { Card, Flex, Text } from "@radix-ui/themes";
 
-const Issue_summary = async () => {
-	let issue_types_count = {
-		open: 0,
-		closed: 0,
-		in_progress: 0,
-	};
+// Components
+import Link_element from "@/app/global.components/link/link";
 
-	const issues = await Prisma.issue.findMany();
-	issues.map((issue) => {
-		if (issue.status === "open") {
-			issue_types_count.open++;
-		} else if (issue.status === "closed") {
-			issue_types_count.closed++;
-		} else if (issue.status === "in progress") {
-			issue_types_count.in_progress++;
-		}
-	});
+// Types
+interface Props {
+	open: number;
+	in_progress: number;
+	closed: number;
+}
 
+const Issue_summary = async (Props: Props) => {
 	return (
 		<>
 			<Flex className="justify-between flex-col space-y-2 md:flex-row md:space-x-4 md:space-y-0">
@@ -28,7 +23,7 @@ const Issue_summary = async () => {
 						<Text className="font-medium">Open</Text>
 						<Text className="font-semibold">
 							<Link_element
-								children={issue_types_count.open}
+								children={Props.open}
 								href="/issues?status=open"
 							/>
 						</Text>
@@ -39,7 +34,7 @@ const Issue_summary = async () => {
 						<Text className="font-medium">In Progress</Text>
 						<Text className="font-semibold">
 							<Link_element
-								children={issue_types_count.in_progress}
+								children={Props.in_progress}
 								href="/issues?status=in_progress"
 							/>
 						</Text>
@@ -50,7 +45,7 @@ const Issue_summary = async () => {
 						<Text className="font-medium">Closed</Text>
 						<Text className="font-semibold">
 							<Link_element
-								children={issue_types_count.closed}
+								children={Props.closed}
 								href="/issues?status=closed"
 							/>
 						</Text>
