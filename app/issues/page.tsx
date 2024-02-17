@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { revalidatePath } from "next/cache";
 import dynamic from "next/dynamic";
+import { Metadata } from "next";
 
 // React
 import { Suspense } from "react";
@@ -33,3 +34,7 @@ const Page = (Props: any) => {
 // export const dynamic = "force-dynamic"; // defaults to auto
 export const revalidate = 0;
 export default Page;
+export const metadata: Metadata = {
+	title: "Issue Tracker - Issue List",
+	description: "View all project issues",
+};

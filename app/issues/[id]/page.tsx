@@ -1,6 +1,7 @@
 // NextJS
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { Metadata } from "next";
 
 // NextAuth
 import { auth_options } from "@/app/api/auth/[...nextauth]/auth_options";
@@ -30,6 +31,7 @@ import Select_assignee from "./components/select_assignee/select_assignee";
 
 // Delay
 import delay from "delay";
+import { describe } from "node:test";
 
 interface Props {
 	params: {
@@ -96,3 +98,15 @@ const Page = async (Props: Props) => {
 };
 
 export default Page;
+export async function generateMetadata(Props: Props) {
+	const issue = await prisma.issue.findUnique({
+		where: {
+			id: parseInt(Props.params.id),
+		},
+	});
+
+	return {
+		title: issue?.title,
+		describe: "Details of issue " + issue?.id,
+	};
+}

@@ -1,4 +1,5 @@
 // NextJS
+import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
 // Components
@@ -18,3 +19,7 @@ const Create_issue = () => {
 };
 
 export default Create_issue;
+export const metadata: Metadata = {
+	title: "Issue Tracker - Create New Issue",
+	description: "Create New Issue",
+};
