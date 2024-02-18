@@ -34,10 +34,9 @@ const Latest_issues = async () => {
 													<Text size="2">
 														<Link_element
 															href={`/issues/${issue.id}`}
-															children={
-																issue.title
-															}
-														></Link_element>
+														>
+															{issue.title}
+														</Link_element>
 													</Text>
 													<Text>
 														<Issue_status_badge

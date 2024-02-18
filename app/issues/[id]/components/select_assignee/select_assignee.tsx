@@ -38,15 +38,6 @@ const Select_assignee = (Props: Props) => {
 			});
 	}, []);
 
-	useEffect(() => {
-		console.log(state_users);
-		console.log(
-			state_users.find(
-				(user) => user.id === Props.issue.assigned_to_user_id
-			)?.id ?? "Unassigned"
-		);
-	}, [state_users]);
-
 	return (
 		<>
 			<Select.Root

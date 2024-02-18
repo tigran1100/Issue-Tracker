@@ -22,10 +22,9 @@ const Issue_summary = async (Props: Props) => {
 					<Flex direction="column">
 						<Text className="font-medium">Open</Text>
 						<Text className="font-semibold">
-							<Link_element
-								children={Props.open}
-								href="/issues?status=open"
-							/>
+							<Link_element href="/issues?status=open">
+								{Props.open}
+							</Link_element>
 						</Text>
 					</Flex>
 				</Card>
@@ -33,10 +32,9 @@ const Issue_summary = async (Props: Props) => {
 					<Flex direction="column">
 						<Text className="font-medium">In Progress</Text>
 						<Text className="font-semibold">
-							<Link_element
-								children={Props.in_progress}
-								href="/issues?status=in_progress"
-							/>
+							<Link_element href="/issues?status=in_progress">
+								{Props.in_progress}
+							</Link_element>
 						</Text>
 					</Flex>
 				</Card>
@@ -44,10 +42,9 @@ const Issue_summary = async (Props: Props) => {
 					<Flex direction="column">
 						<Text className="font-medium">Closed</Text>
 						<Text className="font-semibold">
-							<Link_element
-								children={Props.closed}
-								href="/issues?status=closed"
-							/>
+							<Link_element href="/issues?status=closed">
+								{Props.closed}
+							</Link_element>
 						</Text>
 					</Flex>
 				</Card>
