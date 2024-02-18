@@ -69,7 +69,9 @@ const Show_issues = async (Props: any) => {
 		limit: 10,
 		offset: 0,
 		pages: 0,
-		curent_page: parseInt(Props.parent_props.searchParams.page) ?? 1,
+		curent_page: Props.parent_props.searchParams.page
+			? parseInt(Props.parent_props.searchParams.page)
+			: 1,
 		total_issues: total_issues,
 		total_pages: Math.ceil(total_issues / 10),
 	};

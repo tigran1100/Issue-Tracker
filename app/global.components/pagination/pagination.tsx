@@ -26,17 +26,27 @@ const Pagination = (Props: Props) => {
 	// Variables
 	const page_count = Math.ceil(Props.items_count / Props.page_size);
 
-	// Statements
-	if (page_count <= 1) {
-		return null;
-	}
-
 	// Functions
 	const change_page = (page: number) => {
 		const url = new URLSearchParams(search_params);
 		url.set("page", page.toString());
 		router.push("?" + url);
 	};
+
+	// Statements
+	if (page_count <= 1) {
+		return null;
+	}
+
+	if (isNaN(Props.curent_page)) {
+		Props.curent_page = 1;
+		change_page(1);
+	}
+
+	if (Props.curent_page > page_count) {
+		Props.curent_page = page_count;
+		change_page(page_count);
+	}
 
 	// Return
 	return (

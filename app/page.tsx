@@ -29,7 +29,7 @@ export default async function Home() {
 
 	return (
 		<>
-			<div className="page_content space-y-4">
+			<div className="page_content space-y-4 mt-16">
 				<Latest_issues />
 				<Issue_summary
 					open={issue_types_count.open}

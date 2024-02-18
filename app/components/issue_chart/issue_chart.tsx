@@ -13,22 +13,22 @@ interface Props {
 const Issue_chart = (Props: Props) => {
 	const data = [
 		{
-			label: "open",
+			label: "Open",
 			value: Props.open,
 		},
 		{
-			label: "in_progress",
+			label: "In Progress",
 			value: Props.in_progress,
 		},
 		{
-			label: "closed",
+			label: "Closed",
 			value: Props.closed,
 		},
 	];
 
 	return (
 		<>
-			<div className="pt-4">
+			<div className="pt-8">
 				<ResponsiveContainer width="100%" height={300}>
 					<BarChart data={data}>
 						<XAxis dataKey="label"></XAxis>

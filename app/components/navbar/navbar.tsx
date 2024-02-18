@@ -65,19 +65,21 @@ const Navbar_links = () => {
 					</>
 				) : (
 					<>
-						{nav_links.map((link, index) => (
-							<Link
-								key={76518 + index}
-								href={link.href}
-								className={`c-navbar-link font-medium text-zinc-500 hover:text-zinc-800 transition-all ${
-									currentPath === link.href
-										? "text-zinc-800"
-										: ""
-								}`}
-							>
-								{link.name}
-							</Link>
-						))}
+						<div className="flex gap-3">
+							{nav_links.map((link, index) => (
+								<Link
+									key={76518 + index}
+									href={link.href}
+									className={`c-navbar-link font-medium text-zinc-500 hover:text-zinc-800 transition-all ${
+										currentPath === link.href
+											? "text-zinc-800"
+											: ""
+									}`}
+								>
+									{link.name}
+								</Link>
+							))}
+						</div>
 					</>
 				)}
 			</div>
